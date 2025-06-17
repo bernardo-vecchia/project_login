@@ -9,7 +9,7 @@ import { JwtStrategy } from './jwt.strategy';
   imports: [
     UsersModule,
     JwtModule.register({
-      secret: 'segredo123', // ideal usar env
+      secret: 'BO2-D4LL@1T9',
       signOptions: { expiresIn: '1h' },
     }),
   ],
