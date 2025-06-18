@@ -19,7 +19,7 @@ export class UsersController {
     @Query('sortBy') sortBy?: string,
     @Query('order') order?: string,
   ) {
-    // Defina valores padrão e valide as opções permitidas
+    // Define valores padrão e validação das opções permitidas
     const validSortBy = sortBy === 'createdAt' ? 'createdAt' : 'name';
     const validOrder = order === 'desc' ? 'desc' : 'asc';
     return this.usersService.findAll();
@@ -49,6 +49,13 @@ export class UsersController {
   @Roles('admin')
   delete(@Param('id') id: string) {
     return this.usersService.delete(id);
+  }
+
+  // Apenas admin pode ver usuários inativos
+  @Get('inactive')
+  @Roles('admin')
+  async getInactiveUsers() {
+    return this.usersService.findInactive();
   }
 
 }
