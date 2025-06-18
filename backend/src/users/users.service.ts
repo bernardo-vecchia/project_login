@@ -34,4 +34,14 @@ export class UsersService {
   delete(id: string) {
     return this.usersRepository.delete(id);
   }
+
+  async findInactive() {
+    const dateLimit = new Date();
+    dateLimit.setDate(dateLimit.getDate() - 30); // 30 dias atrás
+
+    return await this.usersRepository
+      .createQueryBuilder('user')
+      .where('user.lastLogin IS NULL OR user.lastLogin < :limit', { limit: dateLimit })
+      .getMany();
+  }
 }
