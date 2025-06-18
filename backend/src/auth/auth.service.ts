@@ -10,7 +10,7 @@ export class AuthService {
   constructor(
     private usersService: UsersService,
     private jwtService: JwtService
-  ) {}
+  ) { }
 
   // Cadastro de usuário
   async register(dto: RegisterDto) {
@@ -52,6 +52,8 @@ export class AuthService {
     if (!isPasswordValid) {
       throw new UnauthorizedException('E-mail ou senha inválidos');
     }
+
+    await this.usersService.update(user.id, { lastLogin: new Date() });
 
     const payload = {
       sub: user.id,
