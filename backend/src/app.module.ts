@@ -1,8 +1,9 @@
+import { ConfigModule } from '@nestjs/config';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
-import { ConfigModule } from '@nestjs/config';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [
@@ -13,14 +14,24 @@ import { ConfigModule } from '@nestjs/config';
       type: 'postgres',
       host: process.env.DB_HOST,
       port: Number(process.env.DB_PORT),
-      username: process.env.DB_USER,
+      username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
-      database: process.env.DB_NAME,
+      database: process.env.DB_DATABASE,
       autoLoadEntities: true,
       synchronize: true, // não usar em produção com 'true'
     }),
     AuthModule,
     UsersModule,
   ],
+  controllers: [AppController],
 })
-export class AppModule {}
+export class AppModule { }
+
+// Verifica se as variáveis de ambiente estão certas
+console.log('DB configs:', {
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  username: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE,
+});
