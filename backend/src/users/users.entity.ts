@@ -1,3 +1,5 @@
+import { time } from 'console';
+import { timestamp } from 'rxjs';
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity('users')
@@ -22,4 +24,7 @@ export class User {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @Column({type: 'timestamp', nullable: true})
+  lastLogin: Date;
 }
