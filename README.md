@@ -60,17 +60,17 @@ Lá estão disponíveis rotas para Auth, User, exemplos de request/response e sc
 
 Testes
 ------
-cd backend
-Exemplo de teste:
-Dentro da pasta users, temos:
-delete, inactive, list, profile ou update
-Exemplo de test:
-npm run test:e2e -- test/users/inactive.e2e-spec.ts
+- cd backend
+- Exemplo de teste:
+- Dentro da pasta users, temos:
+- delete, inactive, list, profile ou update
+- Exemplo de test:
+- npm run test:e2e -- test/users/inactive.e2e-spec.ts
 
-Dentro da pasta auth, temos:
-last-login, login e register
-Exemplo de test:
-npm run test:e2e -- test/auth/login.e2e-spec.ts
+- Dentro da pasta auth, temos:
+- last-login, login e register
+- Exemplo de test:
+- npm run test:e2e -- test/auth/login.e2e-spec.ts
 
 Considerações Finais
 --------------------
