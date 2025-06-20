@@ -7,18 +7,19 @@ export enum Role {
 
 export class UpdateUserDto {
   @IsOptional()
-  @IsString()
+  @IsString({ message: 'O nome deve ser uma string' })
   name?: string;
 
   @IsOptional()
-  @IsEmail()
+  @IsEmail({}, { message: 'E-mail inválido' })
   email?: string;
 
   @IsOptional()
-  @MinLength(6)
+  @IsString({ message: 'A senha deve ser uma string' })
+  @MinLength(6, { message: 'A senha deve ter pelo menos 6 caracteres' })
   password?: string;
 
   @IsOptional()
-  @IsEnum(Role, { message: 'Role must be user or admin' })
+  @IsEnum(Role, { message: 'Role deve ser user ou admin' })
   role?: Role;
 }

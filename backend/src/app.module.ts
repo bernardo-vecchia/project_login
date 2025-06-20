@@ -8,7 +8,17 @@ import { AppController } from './app.controller';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      isGlobal: true
+      isGlobal: true,
+      envFilePath: (() => {
+        switch (process.env.NODE_ENV) {
+          case 'test':
+            return '.env2';
+          case 'production':
+            return '.env.production';
+          default:
+            return '.env';
+        }
+      })(),
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',

@@ -1,3 +1,4 @@
+
 import { Injectable, ConflictException, UnauthorizedException } from '@nestjs/common';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
@@ -57,6 +58,7 @@ export class AuthService {
 
     const payload = {
       sub: user.id,
+      userId: user.id,
       email: user.email,
       role: user.role,
     };
@@ -70,5 +72,23 @@ export class AuthService {
         role: user.role,
       },
     };
+  }
+
+  async changePassword(userId: string, currentPassword: string, newPassword: string) {
+    const user = await this.usersService.findById(userId);
+
+    if (!user) {
+      throw new UnauthorizedException('Usuário não encontrado');
+    }
+
+    const isMatch = await bcrypt.compare(currentPassword, user.password);
+    if (!isMatch) {
+      throw new UnauthorizedException('Senha atual incorreta');
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    await this.usersService.update(user.id, { password: hashedPassword });
+
+    return { message: 'Senha atualizada com sucesso' };
   }
 }
